@@ -117,5 +117,31 @@ Date:   Mon Mar 17 21:52:11 2008 -0700			//提交时间
 - `git reset HEAD CONTRIBUTING.md` 将暂存区中的CONTRIBUTING.md从暂存区删除；
 - `git checkout -- CONTRIBUTING.md` ，用git仓库中最后一次提交的版本内容替换掉现有的CONTRIBUTING.md文件中的内容；
 
-#### 添加远程仓库
+#### 远程仓库
+
+###### 添加远程仓库
+
+`git remote add <shortname> <url>`，shortname--自定义仓库名、url--远程仓库地址
+
+###### 从远程仓库中拉取
+
+`git fetch <remote>`，remote--自定义的仓库名，该命令会访问远程仓库，从中拉去所有本地没有的数据；
+
+###### 推送到本地仓库
+
+`git push origin master`，origin--本地仓库名，master--要推送到的远程分支名，只有当你有所克隆服务器的写入权限，并且之前没有人推送过时，这条命令才能生效；
+
+###### 查看某个远程仓库
+
+`git remote show origin`，origin--本地仓库名，指代远程仓库链接；
+
+###### 远程仓库的重命名与移除
+
+- 重命名 `git remote rename origin target`，将远程仓库 origin 重命名为 target；
+- 移除远程仓库 `git remote [remove || rm] `；
+
+#### 打标签
+
+
+
 
