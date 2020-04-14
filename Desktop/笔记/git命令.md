@@ -125,7 +125,7 @@ Date:   Mon Mar 17 21:52:11 2008 -0700			//提交时间
 
 ###### 从远程仓库中拉取
 
-`git fetch <remote>`，remote--自定义的仓库名，该命令会访问远程仓库，从中拉去所有本地没有的数据；
+`git fetch <remote>`，remote--自定义的仓库名，该命令会访问远程仓库，从中拉去所有本地没有的数据，但是并不会修改工作目录中的内容；
 
 ###### 推送到本地仓库
 
@@ -143,5 +143,63 @@ Date:   Mon Mar 17 21:52:11 2008 -0700			//提交时间
 #### 打标签
 
 
+#### 别名
 
+` git config --global alias.[自定义命令名] [命令名] `，Git 只是简单地将别名替换为对应的命令，例如：
+
+```
+$ git config --global alias.last 'log -1 HEAD'
+
+$ git last
+commit 66938dae3329c7aebe598c2246a8e6af90d04646
+Author: Josh Goebel <dreamer3@example.com>
+Date:   Tue Aug 26 19:48:51 2008 +0800
+
+    test for current head
+
+    Signed-off-by: Scott Chacon <schacon@example.com>
+```
+
+#### 分支
+
+###### branch
+
+`git branch`，查看所有分支，可以看到当前处于哪一分支；
+`git branch -v`，查看所有分支以及分支的最后一次提交信息；
+`git branch [分支名]`，创建新分支；
+`git branch -d [Brc]`，删除分子Brc；
+
+###### checkout
+
+`git checkout [分支名]`，切换分支，会将工作目录整个切换为要切换分支的内容；
+`git checkout -b [分支名]`，新建分支并切换；
+
+###### merge
+
+`git merge [Brc]`，将分支Brc 合并到当前所在的分支；
+
+###### 远程分支
+
+`git ls-remote [remote]`，查看远程仓库的分支；
+`git push origin --delete [远程分支名]`，删除远程分支；
+
+###### 快进（fast-forward）
+
+当你试图合并两个分支时， 如果顺着一个分支走下去能够到达另一个分支，那么 Git 在合并两者的时候， 只会简单的将指针向前推进（指针右移），因为这种情况下的合并操作没有需要解决的分歧；
+
+###### 合并提交
+
+由于要合并的分支并不在同一条提交历史上，无法直接向前推进；所以git将此次三方合并的结果做了一个新的快照并且自动创建一个新的提交指向它；
+
+###### 合并冲突
+
+如果在两个不同的分支中，对同一个文件的同一个部分进行了不同的修改，Git 就没法干净的合并它们；
+
+###### 变基（rebase）
+
+你可以提取在 C4 中引入的补丁和修改，然后在 C3 的基础上应用一次；
+
+![rebase示例](img\rebase.png)
+
+它的原理是首先找到这两个分支（即当前分支 experiment、变基操作的目标基底分支 master） 的最近共同祖先 C2，然后对比当前分支相对于该祖先的历次提交，提取相应的修改并存为临时文件， 然后将当前分支指向目标基底 C3, 最后以此将之前另存为临时文件的修改依序应用；
 
